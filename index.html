@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HomeGuard｜家庭安全監控</title>
+<style>
+:root{--bg:#f5f6f1;--panel:#fff;--ink:#26332d;--muted:#87918a;--sage:#728a79;--sage2:#e6ede6;--rose:#b98286;--rosebg:#f4e7e6;--line:#e8ece6;--shadow:0 8px 30px rgba(38,51,45,.05}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Noto Sans TC","Microsoft JhengHei",sans-serif}
+.layout{display:flex;min-height:100vh}.sidebar{width:250px;background:#fff;border-right:1px solid var(--line);padding:26px 18px;display:flex;flex-direction:column;gap:25px;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:12px;align-items:center;padding:0 8px}.brand-mark{width:42px;height:42px;border-radius:14px;background:var(--sage2);display:grid;place-items:center;font-size:21px}.brand h1{font-size:18px;margin:0}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.nav-label{font-size:11px;color:#a0aaa2;letter-spacing:1.4px;padding:0 10px;margin-bottom:8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#657168;padding:12px 13px;border-radius:12px;text-align:left;font:inherit;cursor:pointer;display:flex;align-items:center;gap:12px;transition:.18s}.nav button:hover{background:#f5f7f3}.nav button.active{background:var(--sage2);color:#43594a;font-weight:650}.nav .ico{width:20px;text-align:center;font-size:17px}.sidebar-bottom{margin-top:auto;border-radius:16px;background:#f6f8f5;padding:14px}.safe-row{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:650}.dot{width:8px;height:8px;border-radius:50%;background:#78a384}.sidebar-bottom p{font-size:11px;color:var(--muted);line-height:1.6;margin:8px 0 0}
+main{flex:1;min-width:0;padding:30px 36px 45px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.welcome small{color:var(--muted);font-size:12px}.welcome h2{font-size:25px;margin:5px 0 0;font-weight:700}.profile{display:flex;align-items:center;gap:11px;background:white;border:1px solid var(--line);padding:8px 12px;border-radius:15px}.avatar{width:36px;height:36px;border-radius:12px;background:#e9e1dc;display:grid;place-items:center;font-size:17px}.profile strong{font-size:12px;display:block}.profile span{font-size:10px;color:var(--muted)}
+.page-title{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}.page-title h3{font-size:20px;margin:0}.page-title p{font-size:12px;color:var(--muted);margin:6px 0 0}.pill{border-radius:30px;padding:8px 12px;background:var(--sage2);color:#56705c;font-size:12px;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:22px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px 19px;box-shadow:var(--shadow)}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-icon{width:33px;height:33px;background:#f4f6f2;border-radius:11px;display:grid;place-items:center;font-size:16px}.stat strong{display:block;font-size:25px;margin:13px 0 3px}.stat small{font-size:11px;color:var(--muted)}
+.grid-main{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(270px,1fr);gap:18px}.section-card{background:white;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.section-head h4{margin:0;font-size:15px}.section-head button{border:0;background:transparent;color:var(--sage);font-weight:600;cursor:pointer;font-size:12px}
+.camera-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.camera{border:1px solid var(--line);border-radius:15px;overflow:hidden}.cam-visual{height:150px;position:relative;overflow:hidden;background:linear-gradient(135deg,#c6d0c5,#7f9587)}.cam-visual.living{background:linear-gradient(120deg,#c6c8b8,#839489)}.cam-visual.room{background:linear-gradient(140deg,#d7c8bc,#9e9e91)}.cam-visual.entry{background:linear-gradient(130deg,#c8d2cf,#899a9a)}.cam-visual:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0px,transparent 24px,rgba(255,255,255,.1) 25px);opacity:.6}.scene-window{position:absolute;top:15px;left:15px;width:30%;height:45%;background:rgba(240,246,237,.5);border:3px solid rgba(255,255,255,.4);border-radius:4px}.scene-sofa{position:absolute;bottom:20px;left:20%;width:60%;height:42px;background:#6e7c71;border-radius:14px 14px 5px 5px;box-shadow:0 -12px 0 -4px #839185}.person{position:absolute;bottom:30px;left:53%;width:24px;height:48px;background:#6d766f;border-radius:12px 12px 4px 4px;opacity:.85}.person:before{content:"";position:absolute;top:-17px;left:2px;width:20px;height:20px;border-radius:50%;background:#d4b8a9}.privacy-mask{position:absolute;bottom:28px;left:12%;width:28px;height:40px;background:rgba(244,231,230,.82);backdrop-filter:blur(5px);border:1px dashed #c68d91;border-radius:8px}.cam-label{position:absolute;top:10px;left:10px;background:rgba(30,40,34,.55);color:white;padding:5px 8px;border-radius:8px;font-size:10px}.live{position:absolute;right:10px;top:10px;color:#fff;background:rgba(47,59,48,.55);font-size:9px;padding:4px 7px;border-radius:10px}.cam-info{display:flex;justify-content:space-between;padding:12px 13px;align-items:center}.cam-info strong{font-size:12px}.cam-info small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.cam-status{font-size:10px;color:#63836a;display:flex;gap:5px;align-items:center}.cam-status .dot{width:6px;height:6px}
+.events{display:grid;gap:12px}.event{display:flex;gap:10px;align-items:flex-start}.event-icon{width:34px;height:34px;border-radius:11px;background:var(--rosebg);display:grid;place-items:center;flex-shrink:0}.event-icon.safe{background:var(--sage2)}.event strong{font-size:12px;display:block}.event p{font-size:10px;color:var(--muted);margin:5px 0 0;line-height:1.5}.event-tag{margin-left:auto;font-size:9px;padding:4px 7px;border-radius:9px;background:var(--rosebg);color:#a66f74;white-space:nowrap}
+.privacy-box{margin-top:17px;background:#f7f8f5;border-radius:15px;padding:15px}.privacy-box h5{font-size:12px;margin:0 0 8px}.privacy-box p{font-size:10px;line-height:1.6;color:var(--muted);margin:0}.toggle-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font-size:11px}.toggle{width:38px;height:22px;border-radius:20px;background:#9eb2a0;position:relative;cursor:pointer;border:0}.toggle:after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:white;transition:.2s}.toggle.on{background:var(--sage)}.toggle.on:after{left:19px}
+.content-view{display:none}.content-view.active{display:block}.placeholder{padding:42px 20px;text-align:center;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:20px}.placeholder h3{color:var(--ink);margin:0 0 8px}.placeholder p{font-size:13px;line-height:1.7}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:13px 10px;text-align:left;border-bottom:1px solid var(--line);font-size:12px}.table th{font-size:10px;color:var(--muted);font-weight:600}.status-chip{padding:5px 8px;border-radius:20px;background:var(--sage2);font-size:10px;color:#58705c}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.grid-main{grid-template-columns:1fr}}
+@media(max-width:720px){.layout{display:block}.sidebar{width:100%;height:auto;position:relative;padding:16px;gap:12px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:0}.nav{grid-template-columns:repeat(3,1fr)}.nav button{justify-content:center;padding:10px 5px;font-size:11px;gap:5px}.nav .ico{display:none}.nav-label,.sidebar-bottom{display:none}main{padding:20px 15px}.topbar{margin-bottom:22px}.welcome h2{font-size:21px}.stats{gap:10px}.stat{padding:14px}.camera-grid{grid-template-columns:1fr}.cam-visual{height:170px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="brand"><div class="brand-mark">⌂</div><div><h1>HomeGuard</h1><small>Family Care · Privacy First</small></div></div>
+<div><div class="nav-label">主選單</div><nav class="nav">
+<button class="active" data-page="overview"><span class="ico">▦</span>總覽 Dashboard</button>
+<button data-page="cameras"><span class="ico">◉</span>監視器</button>
+<button data-page="events"><span class="ico">◷</span>跌倒事件</button>
+<button data-page="family"><span class="ico">♧</span>家庭成員</button>
+<button data-page="security"><span class="ico">⌑</span>安全與隱私</button>
+</nav></div>
+<div class="sidebar-bottom"><div class="safe-row"><span class="dot"></span>系統安全狀態良好</div><p>家庭影像保護已啟用。您僅能存取已授權的攝影機。</p></div>
+</aside>
+<main>
+<div class="topbar"><div class="welcome"><small>WEDNESDAY, NOVEMBER 18</small><h2>早安，家庭管理者 👋</h2></div><div class="profile"><div class="avatar">👤</div><div><strong>PC 家庭</strong><span>管理員帳戶</span></div></div></div>
+
+<section class="content-view active" id="overview">
+<div class="page-title"><div><h3>家庭安全總覽</h3><p>掌握家中狀況，安心守護每一天。</p></div><div class="pill">● 保護模式啟用</div></div>
+<div class="stats">
+<div class="stat"><div class="stat-top">攝影機狀態 <div class="stat-icon">◉</div></div><strong>3 <small style="font-size:13px">/ 3</small></strong><small>所有攝影機運作正常</small></div>
+<div class="stat"><div class="stat-top">今日跌倒事件 <div class="stat-icon">⌁</div></div><strong>0</strong><small>今日尚未偵測到跌倒</small></div>
+<div class="stat"><div class="stat-top">家庭成員 <div class="stat-icon">♧</div></div><strong>4</strong><small>已加入家庭安全網</small></div>
+<div class="stat"><div class="stat-top">隱私保護 <div class="stat-icon">⌑</div></div><strong>ON</strong><small>非家庭人物遮蔽已開啟</small></div>
+</div>
+<div class="grid-main">
+<div class="section-card"><div class="section-head"><h4>監視器即時概況</h4><button onclick="go('cameras')">查看全部 →</button></div><div class="camera-grid">
+<div class="camera"><div class="cam-visual living"><span class="cam-label">客廳</span><span class="live">● LIVE</span><div class="scene-window"></div><div class="scene-sofa"></div><div class="person"></div><div class="privacy-mask"></div></div><div class="cam-info"><div><strong>客廳攝影機</strong><small>CAM-01 · 1080p</small></div><div class="cam-status"><span class="dot"></span>運作中</div></div>
+<div class="camera"><div class="cam-visual room"><span class="cam-label">長輩房</span><span class="live">● LIVE</span><div class="scene-window"></div><div class="scene-sofa" style="left:10%;width:45%;background:#9a887a"></div><div class="person" style="left:60%"></div><div class="privacy-mask" style="left:24%"></div></div><div class="cam-info"><div><strong>長輩房攝影機</strong><small>CAM-02 · 1080p</small></div><div class="cam-status"><span class="dot"></span>運作中</div></div>
+</div></div>
+<div class="section-card"><div class="section-head"><h4>近期事件</h4><button onclick="go('events')">查看紀錄 →</button></div><div class="events">
+<div class="event"><div class="event-icon safe">✓</div><div><strong>隱私遮蔽已執行</strong><p>非家庭人物已自動遮蔽<br>10:42 AM · 客廳</p></div><span class="event-tag">Privacy</span></div>
+<div class="event"><div class="event-icon">⌑</div><div><strong>資料完整性檢查</strong><p>影像紀錄驗證通過<br>09:30 AM · CAM-01</p></div><span class="event-tag" style="background:var(--sage2);color:#5f7966">Verified</span></div>
+<div class="event"><div class="event-icon safe">●</div><div><strong>系統正常運作</strong><p>所有攝影機連線正常<br>08:00 AM</p></div></div>
+</div>
+<div class="privacy-box"><h5>隱私保護設定</h5><p>非家庭人物遮蔽與家庭影像權限限制目前皆啟用。</p><div class="toggle-row">非家庭人物遮蔽<button class="toggle on" aria-label="toggle privacy" onclick="togglePrivacy(this)"></button></div><div class="toggle-row">家庭資料存取限制<button class="toggle on" aria-label="toggle access" onclick="togglePrivacy(this)"></button></div></div>
+</div>
+</section>
+<section class="content-view" id="cameras">
+<div class="page-title"><div><h3>監視器</h3><p>僅顯示您目前帳戶可存取的家庭攝影機。</p></div><div class="pill">3 台裝置</div></div>
+<div class="section-card"><div class="camera-grid">
+<div class="camera"><div class="cam-visual living" style="height:220px"><span class="cam-label">客廳</span><span class="live">● LIVE</span><div class="scene-window"></div><div class="scene-sofa"></div><div class="person"></div><div class="privacy-mask"></div></div><div class="cam-info"><div><strong>客廳攝影機</strong><small>CAM-01 · 家庭共用</small></div><div class="cam-status"><span class="dot"></span>在線</div></div>
+<div class="camera"><div class="cam-visual room" style="height:220px"><span class="cam-label">長輩房</span><span class="live">● LIVE</span><div class="scene-window"></div><div class="scene-sofa" style="left:10%;width:45%;background:#9a887a"></div><div class="person" style="left:60%"></div><div class="privacy-mask" style="left:24%"></div></div><div class="cam-info"><div><strong>長輩房攝影機</strong><small>CAM-02 · 家庭共用</small></div><div class="cam-status"><span class="dot"></span>在線</div></div>
+<div class="camera"><div class="cam-visual entry" style="height:220px"><span class="cam-label">玄關</span><span class="live">● LIVE</span><div class="scene-window"></div><div class="scene-sofa" style="width:40%;left:40%"></div><div class="person" style="left:26%"></div><div class="privacy-mask" style="left:62%"></div></div><div class="cam-info"><div><strong>玄關攝影機</strong><small>CAM-03 · 家庭共用</small></div><div class="cam-status"><span class="dot"></span>在線</div></div>
+</div></div></section>
+<section class="content-view" id="events">
+<div class="page-title"><div><h3>跌倒事件紀錄</h3><p>檢視 AI 偵測事件與系統安全紀錄（示範資料）。</p></div><div class="pill">近 24 小時</div></div>
+<div class="section-card"><table class="table"><thead><tr><th>時間</th><th>事件</th><th>來源</th><th>狀態</th></tr></thead><tbody>
+<tr><td>10:42</td><td>非家庭人物遮蔽</td><td>CAM-01 客廳</td><td><span class="status-chip">已保護</span></td></tr>
+<tr><td>09:30</td><td>資料完整性驗證</td><td>CAM-01 客廳</td><td><span class="status-chip">驗證通過</span></td></tr>
+<tr><td>08:00</td><td>攝影機健康檢查</td><td>全部攝影機</td><td><span class="status-chip">正常</span></td></tr>
+<tr><td>昨天 21:18</td><td>活動偵測</td><td>CAM-02 長輩房</td><td><span class="status-chip">已記錄</span></td></tr>
+</tbody></table></div></section>
+<section class="content-view" id="family">
+<div class="page-title"><div><h3>家庭成員與權限</h3><p>管理家庭成員與各攝影機的可存取權限。</p></div><div class="pill">4 位成員</div></div>
+<div class="section-card"><table class="table"><thead><tr><th>成員</th><th>角色</th><th>可觀看攝影機</th><th>權限狀態</th></tr></thead><tbody>
+<tr><td>👤 PC</td><td>管理員</td><td>全部攝影機</td><td><span class="status-chip">已授權</span></td></tr>
+<tr><td>👩 媽媽</td><td>家庭成員</td><td>客廳、長輩房</td><td><span class="status-chip">已授權</span></td></tr>
+<tr><td>👨 爸爸</td><td>家庭成員</td><td>客廳、玄關</td><td><span class="status-chip">已授權</span></td></tr>
+<tr><td>👵 阿嬤</td><td>被照護者</td><td>無（僅事件通知）</td><td><span class="status-chip">受保護</span></td></tr>
+</tbody></table></div></section>
+<section class="content-view" id="security">
+<div class="page-title"><div><h3>安全與隱私設定</h3><p>展示家庭影像保護與資料安全的設計概念。</p></div><div class="pill">Privacy First</div></div>
+<div class="section-card" style="max-width:760px"><div class="events">
+<div class="event"><div class="event-icon safe">⌑</div><div><strong>非家庭人物自動遮蔽</strong><p>家庭以外人物的影像資訊會進行遮蔽處理。此為 UI 示範開關。</p></div><button class="toggle on" onclick="togglePrivacy(this)"></button></div>
+<div class="event"><div class="event-icon safe">♧</div><div><strong>帳戶影像權限隔離</strong><p>不同家庭帳戶僅能查看所授權的攝影機資料，避免跨家庭資料存取。</p></div><button class="toggle on" onclick="togglePrivacy(this)"></button></div>
+<div class="event"><div class="event-icon safe">✓</div><div><strong>資料完整性驗證</strong><p>影像紀錄使用雜湊驗證概念，確認資料是否與原始紀錄一致。此為介面示意，尚未連接驗證服務。</p></div><span class="status-chip">Demo</span></div>
+</div></div></section>
+</main>
+</div>
+<script>
+function go(page){document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.querySelectorAll('.content-view').forEach(v=>v.classList.toggle('active',v.id===page));window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+function togglePrivacy(btn){btn.classList.toggle('on');const on=btn.classList.contains('on');btn.title=on?'已啟用':'已停用';}
+</script>
+</body>
+</html>
